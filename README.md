@@ -1,9 +1,8 @@
-node-transparentCache
-=====================
+# node-transparentCache
 
 [![Build Status](https://travis-ci.org/zaphod1984/node-transparentCache.png)](https://travis-ci.org/zaphod1984/node-transparentCache)
 
-Invocation:
+## Invocation
 ```javascript
 var cachify = require('transparentCache');
 
@@ -57,3 +56,20 @@ three invoked
 three
 three
 ```
+
+## Strategies
+
+One can specify several caching strategies.
+Strategies can be created by either doing it by hand:
+```javascript
+var strategy = new cachify.strategies.Plain();
+```
+or using the factory method:
+```javascript
+var strategy = cachify.createStrategy('Plain');
+```
+
+Three strategies are built-in:
+* Plain: Simple key-value storage
+* RingBuffer: Stores a finite number and kicks out the first inserted, accepts an additional options object that specifies the size
+* Lru: Stores a finit number and kicks out the last recently used, accepts an additional options object that specifies the size

@@ -1,5 +1,3 @@
-//TODO: factory method for strategy
-
 var strategies = require('./strategies');
 
 function cachify(client, config, cachingStrategy) {
@@ -74,5 +72,7 @@ cachify.createStrategy = function(name, options) {
 
     throw new Error('strategy ' + name + ' not found');
 };
+
+cachify.strategies = strategies;
 
 module.exports = cachify;

@@ -1,3 +1,5 @@
+//TODO: detect if the function is a synchronous or asynchronous function
+
 var strategies = require('./strategies');
 
 function cachify(client, config, cachingStrategy) {

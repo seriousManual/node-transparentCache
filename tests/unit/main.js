@@ -5,7 +5,9 @@ var cachify = require('../../');
 
 describe('main', function() {
 
-    function FooClass() {}
+    function FooClass() {
+        this.three = sinon.stub().returns('three');
+    }
 
     FooClass.prototype.one = sinon.stub().returns('one');
     FooClass.prototype.two = sinon.stub().returns('two');
@@ -14,6 +16,7 @@ describe('main', function() {
 
     var fooObjectOneStub = fooObject.one;
     var fooObjectTwoStub = fooObject.two;
+    var fooObjectThreeStub = fooObject.three;
 
     var cached = cachify(fooObject, {'one':[]});
 
@@ -25,6 +28,16 @@ describe('main', function() {
     cached.two();
     cached.two();
 
+    cached.three();
+    cached.three();
+    cached.three();
+
+    it('should still return the correct value', function() {
+        expect(cached.one()).to.equal('one');
+        expect(cached.two()).to.equal('two');
+        expect(cached.three()).to.equal('three');
+    });
+
     it('should return the same object', function() {
         expect(cached).to.be.an.instanceOf(FooClass);
     });
@@ -34,7 +47,8 @@ describe('main', function() {
     });
 
     it('should be called thrice', function() {
-        expect(fooObjectTwoStub.args.length).to.equal(3);
+        expect(fooObjectTwoStub.args.length).to.equal(4);
+        expect(fooObjectThreeStub.args.length).to.equal(4);
     });
 
 });

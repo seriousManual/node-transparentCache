@@ -1,6 +1,9 @@
 //TODO: accept a strategy that implements the way the cache values are stored
 //TODO: e.g. plain Object, LRU-Cache, ringBuffer...
 
+//TODO: invalidate
+//TODO: objects as parameters
+
 function cachify(client, config) {
     config = config || {};
 

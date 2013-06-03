@@ -67,4 +67,12 @@ cachify._collectRelevantArguments = function(cacheData, allArguments) {
     return relevantArguments;
 };
 
+cachify.createStrategy = function(name, options) {
+    if(strategies[name]) {
+        return new strategies[name](options);
+    }
+
+    throw new Error('strategy ' + name + ' not found');
+};
+
 module.exports = cachify;

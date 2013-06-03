@@ -20,8 +20,21 @@ describe('unit', function() {
         expect(cachify._collectRelevantArguments([], ['abc', [1,2]])).to.deep.equal([]);
     });
 
-
     describe('strategies', function() {
+
+        describe('factory method', function() {
+
+            it('should throw on unknown strategy name', function() {
+                expect(function() {
+                    cachify.createStrategy('foo', {});
+                }).to.throw;
+            });
+
+            it('should create the correct backend', function() {
+                expect(cachify.createStrategy('Plain')).to.be.an.instanceOf(strategies.Plain);
+            })
+
+        });
 
         describe('plain', function() {
             var myPlain = new strategies.Plain();

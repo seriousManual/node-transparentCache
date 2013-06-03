@@ -1,7 +1,7 @@
 {
     "name": "transparentCache",
     "description": "transparent caching layer for javascript objects",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/zaphod1984/node-transparentCache.git"
@@ -10,7 +10,8 @@
     "dependencies": {},
     "devDependencies": {
         "mocha": "*",
-        "chai": "*"
+        "chai": "*",
+        "sinon": "*"
     },
     "files": [
         "index.js"

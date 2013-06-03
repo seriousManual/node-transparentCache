@@ -1,6 +1,8 @@
 node-transparentCache
 =====================
 
+[![Build Status](https://travis-ci.org/zaphod1984/node-transparentCache.png)](https://travis-ci.org/zaphod1984/node-transparentCache)
+
 Invocation:
 ```javascript
 var cachify = require('transparentCache');

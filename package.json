@@ -1,5 +1,5 @@
 {
-    "name": "node-transparentCache",
+    "name": "transparentCache",
     "description": "transparent caching layer for javascript objects",
     "version": "0.0.1",
     "repository": {
@@ -14,5 +14,6 @@
     },
     "files": [
         "index.js"
-    ]
+    ],
+    "main": "./index.js"
 }

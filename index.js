@@ -1,8 +1,6 @@
 //TODO: accept a strategy that implements the way the cache values are stored
 //TODO: e.g. plain Object, LRU-Cache, ringBuffer...
-
 //TODO: invalidate
-//TODO: objects as parameters
 
 function cachify(client, config) {
     config = config || {};
@@ -39,7 +37,21 @@ function cachify(client, config) {
 }
 
 cachify._createCacheName = function(listOfArguments) {
-    return listOfArguments.join('_');
+
+    var tmp = listOfArguments.map(function(argument) {
+        switch (typeof argument) {
+            case 'string':
+                return argument;
+
+            case 'number':
+                return argument + '';
+
+            default:
+                return JSON.stringify(argument);
+        }
+    });
+
+    return tmp.join('_');
 };
 
 cachify._collectRelevantArguments = function(cacheData, allArguments) {

@@ -1,34 +1,33 @@
-//TODO: accept a strategy that implements the way the cache values are stored
-//TODO: e.g. plain Object, LRU-Cache, ringBuffer...
-//TODO: invalidate
+//TODO: factory method for strategy
 
-function cachify(client, config) {
+var strategies = require('./strategies');
+
+function cachify(client, config, cachingStrategy) {
     config = config || {};
-
-    var cache = {};
+    cachingStrategy = cachingStrategy || new strategies.Plain();
 
     Object.keys(config).forEach(function(augmentFunctionName) {
         var _previous = client[augmentFunctionName];
 
         var me = function() {
-            var collectedRelevantArguments = cachify._collectRelevantArguments(me._cacheData, [].slice.apply(arguments));
+            var collectedRelevantArguments = cachify._collectRelevantArguments(me._cacheConfig, [].slice.apply(arguments));
             collectedRelevantArguments.unshift(augmentFunctionName);
 
             var cacheName = cachify._createCacheName(collectedRelevantArguments);
-            var cacheContent = cachify._lookupCache(cache, cacheName);
+            var cacheContent = cachingStrategy.get(cacheName);
 
-            if(cacheContent !== null) {
+            if(cacheContent !== undefined) {
                 return cacheContent;
             } else {
                 var returnValue = _previous.apply(client, arguments);
 
-                cachify._addToCache(cache, cacheName, returnValue);
+                cachingStrategy.set(cacheName, returnValue);
 
                 return returnValue;
             }
         };
 
-        me._cacheData = config[augmentFunctionName];
+        me._cacheConfig = config[augmentFunctionName];
 
         client[augmentFunctionName] = me;
     });
@@ -66,18 +65,6 @@ cachify._collectRelevantArguments = function(cacheData, allArguments) {
     });
 
     return relevantArguments;
-};
-
-cachify._lookupCache = function(cache, name) {
-    if(cache[name]) {
-        return cache[name];
-    }
-
-    return null;
-};
-
-cachify._addToCache = function(cache, name, value) {
-    cache[name] = value;
 };
 
 module.exports = cachify;

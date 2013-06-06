@@ -57,6 +57,55 @@ three
 three
 ```
 
+It also caches asynchronous function calls:
+```javascript
+function FooClass(b) {}
+
+FooClass.prototype.one = function(a, callback) {
+    console.log('actual invocation');
+    setTimeout(function() {
+        callback('|' + a + '|');
+    }, 500);
+};
+
+var fooObject = new FooClass('b');
+
+var fooObjectCached = cachify(fooObject, {'one':[0]});
+
+fooObjectCached.one('a', function() {
+    console.log(arguments);
+});
+
+fooObjectCached.one('a', function() {
+    console.log(arguments);
+});
+
+setTimeout(function() {
+    fooObjectCached.one('a', function() {
+        console.log(arguments);
+    });
+
+    fooObjectCached.one('a', function() {
+        console.log(arguments);
+    });
+
+    fooObjectCached.one('a', function() {
+        console.log(arguments);
+    });
+}, 1000);
+```
+
+which yields:
+```
+actual invocation
+actual invocation
+{ '0': '|a|' }
+{ '0': '|a|' }
+{ '0': '|a|' }
+{ '0': '|a|' }
+{ '0': '|a|' }
+```
+
 ## Strategies
 
 One can specify several caching strategies.

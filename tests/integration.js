@@ -19,7 +19,7 @@ describe('integration', function() {
         var fooObjectTwoStub = fooObject.two;
         var fooObjectThreeStub = fooObject.three;
 
-        var cached = cachify(fooObject, {'one':[]});
+        var cached = cachify(fooObject, {methods:{'one':[]}});
 
         cached.one();
         cached.one();
@@ -62,7 +62,7 @@ describe('integration', function() {
 
         var fooObjectOneStub = fooObject.one;
 
-        var cached = cachify(fooObject, {'one':[0]});
+        var cached = cachify(fooObject, {methods:{'one':[0]}});
 
         cached.one(1,1);
         cached.one(1,2);
@@ -84,7 +84,7 @@ describe('integration', function() {
 
         var fooObjectOneStub = fooObject.one;
 
-        var cached = cachify(fooObject, {'one':[0]});
+        var cached = cachify(fooObject, {methods:{'one':[0]}});
 
         cached.one({a:1});
         cached.one({a:2});
@@ -105,7 +105,7 @@ describe('integration', function() {
 
         var fooObjectOneStub = fooObject.one;
 
-        var cached = cachify(fooObject, {'one':[0]});
+        var cached = cachify(fooObject, {methods:{'one':[0]}});
 
         cached.one([1,2]);
         cached.one([1,2]);
@@ -114,6 +114,37 @@ describe('integration', function() {
 
         it('should use complex values for cachenames', function() {
             expect(fooObjectOneStub.args.length).to.equal(2);
+        });
+    });
+
+    describe('asynchronous calls', function() {
+        function FooClass() {}
+
+        FooClass.prototype.one = sinon.stub().callsArgWith(0, 'x');
+
+        var fooObject = new FooClass();
+
+        var fooObjectOneStub = fooObject.one;
+
+        var cached = cachify(fooObject, {methods:{'one':[0]}});
+
+        var calls = 0;
+
+        it('should use complex values for cachenames', function() {
+            cached.one(function() {
+                calls++;
+            });
+
+            cached.one(function() {
+                calls++;
+            });
+
+            cached.one(function() {
+                calls++;
+            });
+
+            expect(calls).to.equal(3);
+            expect(fooObjectOneStub.args.length).to.equal(1);
         });
     });
 

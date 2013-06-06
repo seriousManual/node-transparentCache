@@ -3,15 +3,14 @@ var strategies = require('./strategies');
 /**
  * wrapes methods of an object that are defined with a transparent caching layer
  * @param client the clients methods get wrapped
- * @param config configuration for the caching strategies
- * @param cachingStrategy the strategy that should be used to cache items: Plain|Lru|Ringbuffer|Timeout
+ * @param options configuration for the caching strategies
  * @returns {*}
  */
-function cachify(client, config) {
-    config = config || {};
-    var cachingStrategy = config.cachingStrategy || new strategies.Plain();
-    var methods = config.methods || {};
-    var cacheErrors = config.cacheErrors || true;
+function cachify(client, options) {
+    options = options || {};
+    var cachingStrategy = options.cachingStrategy || new strategies.Plain();
+    var methods = options.methods || {};
+    var cacheErrors = options.cacheErrors || true;
 
     Object.keys(methods).forEach(function(augmentFunctionName) {
         var _previous = client[augmentFunctionName];

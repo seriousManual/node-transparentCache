@@ -124,5 +124,41 @@ describe('unit', function() {
                 expect(myLru.get('d')).to.equal('dd');
             });
         });
+
+        describe('Timeout', function() {
+            var myTimeout = new strategies.Timeout({ttl:50});
+
+            it('should get and set', function() {
+                myTimeout.set('a', 'b');
+                expect(myTimeout.size()).to.equal(1);
+                expect(myTimeout.get('a')).to.equal('b');
+            });
+
+            it('should flush', function() {
+                myTimeout.set('a', 'b');
+                expect(myTimeout.size()).to.equal(1);
+
+                myTimeout.flush();
+                expect(myTimeout.size()).to.equal(0);
+            });
+
+            it('should return the correct value within the timeout and after the timeout', function(done) {
+                myTimeout.flush();
+
+                myTimeout.set('a', 'aa');
+                expect(myTimeout.size()).to.equal(1);
+
+                setTimeout(function() {
+                    expect(myTimeout.get('a')).to.equal('aa');
+                }, 20);
+
+                setTimeout(function() {
+                    expect(myTimeout.get('a')).to.be.undefined;
+
+                    done();
+                }, 100);
+
+            });
+        });
     });
 });

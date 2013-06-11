@@ -73,3 +73,4 @@ Three strategies are built-in:
 * Plain: Simple key-value storage
 * RingBuffer: Stores a finite number and kicks out the first inserted, accepts an additional options object that specifies the size
 * Lru: Stores a finit number and kicks out the last recently used, accepts an additional options object that specifies the size
+* Timeout: Stores cache values for a defined span of time

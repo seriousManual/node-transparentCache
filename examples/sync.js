@@ -23,7 +23,7 @@ FooClass.prototype.one = function(a, b) {
 
 var fooObject = new FooClass('b');
 
-var fooObjectCached = cachify(fooObject, {'one':[1], 'three':[]});
+var fooObjectCached = cachify(fooObject, {methods:{'one':[1], 'three':[]}});
 
 console.log( fooObjectCached.one(1,2) );
 console.log( fooObjectCached.one(2,2) );

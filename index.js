@@ -1,5 +1,3 @@
-//TODO: detect if the function is a synchronous or asynchronous function
-
 var strategies = require('./strategies');
 
 /**
@@ -10,6 +8,7 @@ var strategies = require('./strategies');
  */
 function cachify(client, options) {
     options = options || {};
+
     var cachingStrategy = options.cachingStrategy || new strategies.Plain();
     var methods = options.methods || {};
     var cacheErrors = options.cacheErrors || true;

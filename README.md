@@ -2,7 +2,26 @@
 
 [![Build Status](https://travis-ci.org/zaphod1984/node-transparentCache.png)](https://travis-ci.org/zaphod1984/node-transparentCache)
 
+## Installation
+
+```$ npm install transparentcache```
+
+
+
 ## Invocation
+
+transparentcache exposes one single function that can be used to cache the output of object members.
+It follows the memoize pattern and accepts a configuration that specifies which parameters are acutally relevant for the cache name.
+
+### options
+
+* `cachingStrategy` specifies the strategy that is used to cache the method output, see "Strategies" below
+* `methods` a hash which keys are the names of the methods to cache, its values are pointing to the index of the parameters that are relevant for the cache name. e.g. `{foo:[0]}`specifies that the function `foo` should be cached and that only the first parameter should be considered for caching.
+
+## Examples
+
+### Sync Caching
+
 ```javascript
 var cachify = require('transparentCache');
 
@@ -56,6 +75,8 @@ three invoked
 three
 three
 ```
+
+### Async Caching
 
 It also caches asynchronous function calls:
 ```javascript
@@ -113,13 +134,16 @@ Strategies can be created by either doing it by hand:
 ```javascript
 var strategy = new cachify.strategies.Plain();
 ```
+
 or using the factory method:
 ```javascript
 var strategy = cachify.createStrategy('Plain');
 ```
 
-Three strategies are built-in:
+A second optional constuctor parameter can be assigned to specify the the configuration of the caching strategy.
+
+Four strategies are built-in:
 * Plain: Simple key-value storage
-* RingBuffer: Stores a finite number and kicks out the first inserted, accepts an additional options object that specifies the size
-* Lru: Stores a finit number and kicks out the last recently used, accepts an additional options object that specifies the size
-* Timeout: Stores cache values for a defined span of time
+* RingBuffer: Stores a finite number and kicks out the first inserted, accepts an additional options object that specifies the size. Accepts the parameter `size` (default: 10)
+* Lru: Stores a finit number and kicks out the last recently used, accepts an additional options object that specifies the size. Accepts the parameter `size` (default: 10).
+* Timeout: Stores cache values for a defined span of time. Accepts the parameter `ttl` which is the lifetime of a cache object in milliseconds. (default: 5 minute)

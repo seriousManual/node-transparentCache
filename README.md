@@ -146,4 +146,4 @@ Four strategies are built-in:
 * Plain: Simple key-value storage
 * RingBuffer: Stores a finite number and kicks out the first inserted, accepts an additional options object that specifies the size. Accepts the parameter `size` (default: 10)
 * Lru: Stores a finit number and kicks out the last recently used, accepts an additional options object that specifies the size. Accepts the parameter `size` (default: 10).
-* Timeout: Stores cache values for a defined span of time. Accepts the parameter `ttl` which is the lifetime of a cache object in milliseconds. (default: 5 minute)
+* Timeout: Stores cache values for a defined span of time. Accepts the parameter `ttl` which is the lifetime of a cache object in milliseconds. (default: 5 minutes)

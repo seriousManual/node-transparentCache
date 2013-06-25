@@ -154,6 +154,7 @@ describe('unit', function() {
 
                 setTimeout(function() {
                     expect(myTimeout.get('a')).to.be.undefined;
+                    expect(myTimeout._cache['a']).to.be.undefined;
 
                     done();
                 }, 100);

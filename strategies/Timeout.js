@@ -15,7 +15,13 @@ util.inherits(Timeout, Strategy);
 Timeout.prototype.get = function(name) {
     var cacheContent = this._cache[name];
 
-    if(!this._cache[name] || this._isOutdated(cacheContent)) {
+    if(!this._cache[name]) {
+        return undefined;
+    }
+
+    if(this._isOutdated(cacheContent)) {
+        delete this._cache[name];
+
         return undefined;
     }
 

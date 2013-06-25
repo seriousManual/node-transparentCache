@@ -5,7 +5,7 @@ var cachify = require('../');
 
 describe('integration', function() {
 
-    describe('stdFunctionality', function() {
+    describe('stdFunctionality (object)', function() {
         function FooClass() {
             this.three = sinon.stub().returns('three');
         }
@@ -47,10 +47,34 @@ describe('integration', function() {
             expect(fooObjectOneStub.args.length).to.equal(1);
         });
 
-        it('should be called thrice', function() {
+        it('should be called four times', function() {
             expect(fooObjectTwoStub.args.length).to.equal(4);
             expect(fooObjectThreeStub.args.length).to.equal(4);
         });
+    });
+
+    describe('std functionality (function)', function() {
+        var one = sinon.stub().returns('one');
+
+        var cached = cachify(one, {parameters:[0]});
+
+        var res1 = cached(1,1);
+        var res2 = cached(1,2);
+        var res3 = cached(1,3);
+        var res4 = cached(1,4);
+        var res5 = cached(1,5);
+
+        it('should only use the first argument to determine the cachevalue', function() {
+            expect(one.args.length).to.equal(1);
+        });
+
+        it('should have the correct output', function() {
+            expect(res1).to.equal('one');
+            expect(res2).to.equal('one');
+            expect(res3).to.equal('one');
+            expect(res4).to.equal('one');
+            expect(res5).to.equal('one');
+        })
     });
 
     describe('scalar parameters', function() {

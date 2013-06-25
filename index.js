@@ -1,7 +1,7 @@
 var strategies = require('./strategies');
 
 /**
- * wrapes methods of an object that are defined with a transparent caching layer
+ * wrapps methods of an object that are defined with a transparent caching layer
  * @param client the clients methods get wrapped
  * @param options configuration for the caching strategies
  * @returns {*}

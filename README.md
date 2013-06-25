@@ -25,116 +25,46 @@ It follows the memoize pattern and accepts a configuration that specifies which 
 
 ## Examples
 
+For more detailed examples check the `examples` folder where examples for the caching of asynchronous object members, synchronous object members and asynchronous functions are located.
+
 ### Sync Caching
 
 ```javascript
-var cachify = require('transparentCache');
+var cachify = require('../');
 
-function FooClass(b) {
-    this._a = 'foo';
-    this._b = b;
-
-    this.three = function() {
-        console.log( 'three invoked' );
-        return 'three';
-    }
+function one (a, b) {
+    console.log( 'one actually invoked' );
+    return '|' + b + '|' + a + '|' + b + '|';
 }
 
-//two should not be cached!
-FooClass.prototype.two = function() {
-    console.log('two actually invoked');
-    return 'two';
-};
+var oneCached = cachify(one, {parameters:[0]});
 
-FooClass.prototype.one = function(a, b) {
-    console.log( 'one actually invoked' );
-    return '|' + b + '|' + this._a + '|' + this._b + '|' + this.two();
-};
-
-var fooObject = new FooClass('b');
-
-var fooObjectCached = cachify(fooObject, {'one':[1], 'three':[]});
-
-console.log( fooObjectCached.one(1,2) );
-console.log( fooObjectCached.one(2,2) );
-console.log( fooObjectCached.one(1,2) );
-
-console.log( fooObjectCached.two() );
-console.log( fooObjectCached.two() );
-
-console.log( fooObjectCached.three() );
-console.log( fooObjectCached.three() );
+console.log( oneCached(1, 2) );
+console.log( oneCached(1, 3) );
+console.log( oneCached(1, 4) );
+console.log( oneCached(1, 5) );
+console.log( oneCached(2, 2) );
+console.log( oneCached(2, 999) );
 ```
 
 yields the following output:
 ```
 one actually invoked
-|2|foo|b|
-|2|foo|b|
-|2|foo|b|
-two actually invoked
-two
-two actually invoked
-two
-three invoked
-three
-three
+|2|1|2|
+|2|1|2|
+|2|1|2|
+|2|1|2|
+one actually invoked
+|2|2|2|
+|2|2|2|
 ```
 
-### Async Caching
+## Cachingstrategies
 
-It also caches asynchronous function calls:
-```javascript
-function FooClass(b) {}
+Cachingstrategies are responsible to implement the way in that the cache values are stored.
 
-FooClass.prototype.one = function(a, callback) {
-    console.log('actual invocation');
-    setTimeout(function() {
-        callback('|' + a + '|');
-    }, 500);
-};
+### Creation
 
-var fooObject = new FooClass('b');
-
-var fooObjectCached = cachify(fooObject, {'one':[0]});
-
-fooObjectCached.one('a', function() {
-    console.log(arguments);
-});
-
-fooObjectCached.one('a', function() {
-    console.log(arguments);
-});
-
-setTimeout(function() {
-    fooObjectCached.one('a', function() {
-        console.log(arguments);
-    });
-
-    fooObjectCached.one('a', function() {
-        console.log(arguments);
-    });
-
-    fooObjectCached.one('a', function() {
-        console.log(arguments);
-    });
-}, 1000);
-```
-
-which yields:
-```
-actual invocation
-actual invocation
-{ '0': '|a|' }
-{ '0': '|a|' }
-{ '0': '|a|' }
-{ '0': '|a|' }
-{ '0': '|a|' }
-```
-
-## Strategies
-
-One can specify several caching strategies.
 Strategies can be created by either doing it by hand:
 ```javascript
 var strategy = new cachify.strategies.Plain();
@@ -146,6 +76,8 @@ var strategy = cachify.createStrategy('Plain');
 ```
 
 A second optional constuctor parameter can be assigned to specify the the configuration of the caching strategy.
+
+### Strategies
 
 Four strategies are built-in:
 * Plain: Simple key-value storage

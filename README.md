@@ -8,19 +8,19 @@
 
 
 
-## Invocation
+## transparentcache(client, [options])
 
 transparentcache exposes one single function that can be used to cache the output of object members or the output of single function.
 It follows the memoize pattern and accepts a configuration that specifies which parameters are acutally relevant for the reidentification of a cache member.
 
 ### options (object)
 
-* `cachingStrategy` specifies the strategy that is used to cache the method output, see "Strategies" below
+* `cachingStrategy` specifies the strategy that is used to cache the method output, see "Strategies" below. (default: Plain)
 * `methods` a hash which keys are the names of the methods to cache, its values are pointing to the index of the parameters that are relevant for the cache name. e.g. `{foo:[0]}` specifies that the function `foo` should be cached and that only the first parameter should be considered for caching.
 
 ### options (function)
 
-* `cachingStrategy` specifies the strategy that is used to cache the method output, see "Strategies" below
+* `cachingStrategy` specifies the strategy that is used to cache the method output, see "Strategies" below. (default: Plain)
 * `parameters` an array that specifies which function parameters are responsible for the caching. e.g. `[0]` states that only the first argument should be considered for the cache identifcation name
 
 ## Examples

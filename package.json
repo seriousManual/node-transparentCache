@@ -1,7 +1,7 @@
 {
     "name": "transparentcache",
     "description": "transparent caching layer for javascript objects",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "repository": {
         "type": "git",
         "url": "https://github.com/zaphod1984/node-transparentCache.git"
@@ -19,7 +19,7 @@
         "index.js"
     ],
     "main": "./index.js",
-    "keywords": ["cachinglayer", "transparent cache", "memoize"],
+    "keywords": ["cachinglayer", "transparent cache", "memoize", "cache"],
     "scripts": {
         "test": "./node_modules/mocha/bin/mocha tests"
     }

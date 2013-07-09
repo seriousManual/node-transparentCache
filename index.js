@@ -31,7 +31,13 @@ function cachify(client, options) {
  */
 cachify._augmentClient = function(client, cacheConfig, cachingStrategy) {
     Object.keys(cacheConfig).forEach(function(augmentFunctionName) {
-        client[augmentFunctionName] = cachify._cacheMethod(client, client[augmentFunctionName],
+        var prevFunction = client[augmentFunctionName];
+
+        if(!prevFunction) {
+            throw new Error('method "' + augmentFunctionName + '" not found');
+        }
+
+        client[augmentFunctionName] = cachify._cacheMethod(client, prevFunction,
             augmentFunctionName, cacheConfig[augmentFunctionName], cachingStrategy);
     });
 

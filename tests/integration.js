@@ -5,6 +5,16 @@ var cachify = require('../');
 
 describe('integration', function() {
 
+    describe('error case', function() {
+        function FooClass() {}
+
+        var fooObject = new FooClass();
+
+        expect(function() {
+            cachify(fooObject, {methods:{'bar':[]}});
+        }).to.throw(Error, /method "bar" not found/);
+    });
+
     describe('stdFunctionality (object)', function() {
         function FooClass() {
             this.three = sinon.stub().returns('three');

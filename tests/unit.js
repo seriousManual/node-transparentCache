@@ -37,7 +37,11 @@ describe('unit', function() {
         });
 
         describe('plain', function() {
-            var myPlain = new strategies.Plain();
+            var myPlain;
+
+            beforeEach(function() {
+                myPlain = new strategies.Plain();
+            });
 
             it('should get and set', function() {
                 myPlain.set('a', 'b');
@@ -55,7 +59,11 @@ describe('unit', function() {
         });
 
         describe('ringBuffer', function() {
-            var myRing = new strategies.RingBuffer({size:3});
+            var myRing;
+
+            beforeEach(function() {
+                myRing = new strategies.RingBuffer({size:3});
+            });
 
             it('should get and set', function() {
                 myRing.set('a', 'b');
@@ -89,7 +97,11 @@ describe('unit', function() {
         });
 
         describe('LRU', function() {
-            var myLru = new strategies.Lru({size:3});
+            var myLru;
+
+            beforeEach(function() {
+                myLru = new strategies.Lru({size:3});
+            });
 
             it('should get and set', function() {
                 myLru.set('a', 'b');
@@ -126,7 +138,11 @@ describe('unit', function() {
         });
 
         describe('Timeout', function() {
-            var myTimeout = new strategies.Timeout({ttl:50});
+            var myTimeout;
+
+            beforeEach(function() {
+                myTimeout = new strategies.Timeout({ttl:50});
+            });
 
             it('should get and set', function() {
                 myTimeout.set('a', 'b');

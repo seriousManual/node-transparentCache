@@ -1,7 +1,10 @@
 # node-transparentCache
 
 [![Build Status](https://travis-ci.org/zaphod1984/node-transparentCache.png)](https://travis-ci.org/zaphod1984/node-transparentCache)
-[![NPM version](https://badge.fury.io/js/transparentcache.png)](http://badge.fury.io/js/transparentcache)
+
+[![NPM](https://nodei.co/npm/transparentcache.png)](https://nodei.co/npm/transparentcache/)
+
+[![NPM](https://nodei.co/npm-dl/transparentcache.png?months=3)](https://nodei.co/npm/transparentcache/)
 
 ## Installation
 

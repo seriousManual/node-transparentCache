@@ -54,12 +54,12 @@ describe('integration', function() {
         });
 
         it('should be called only once', function() {
-            expect(fooObjectOneStub.args.length).to.equal(1);
+            expect(fooObjectOneStub.callCount).to.equal(1);
         });
 
         it('should be called four times', function() {
-            expect(fooObjectTwoStub.args.length).to.equal(4);
-            expect(fooObjectThreeStub.args.length).to.equal(4);
+            expect(fooObjectTwoStub.callCount).to.equal(4);
+            expect(fooObjectThreeStub.callCount).to.equal(4);
         });
     });
 
@@ -75,7 +75,7 @@ describe('integration', function() {
         var res5 = cached(1,5);
 
         it('should only use the first argument to determine the cachevalue', function() {
-            expect(one.args.length).to.equal(1);
+            expect(one.callCount).to.equal(1);
         });
 
         it('should have the correct output', function() {
@@ -105,7 +105,7 @@ describe('integration', function() {
         cached.one(1,5);
 
         it('should only use the first argument to determine the cachevalue', function() {
-            expect(fooObjectOneStub.args.length).to.equal(1);
+            expect(fooObjectOneStub.callCount).to.equal(1);
         });
     });
 
@@ -126,7 +126,7 @@ describe('integration', function() {
         cached.one({a:1});
 
         it('should use complex values for cachenames', function() {
-            expect(fooObjectOneStub.args.length).to.equal(2);
+            expect(fooObjectOneStub.callCount).to.equal(2);
         });
     });
 
@@ -147,7 +147,7 @@ describe('integration', function() {
         cached.one([3,4]);
 
         it('should use complex values for cachenames', function() {
-            expect(fooObjectOneStub.args.length).to.equal(2);
+            expect(fooObjectOneStub.callCount).to.equal(2);
         });
     });
 
@@ -178,7 +178,7 @@ describe('integration', function() {
             });
 
             expect(calls).to.equal(3);
-            expect(fooObjectOneStub.args.length).to.equal(1);
+            expect(fooObjectOneStub.callCount).to.equal(1);
         });
     });
 

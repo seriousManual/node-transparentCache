@@ -1,6 +1,4 @@
-# node-transparentCache
-
-[![Build Status](https://travis-ci.org/zaphod1984/node-transparentCache.png)](https://travis-ci.org/zaphod1984/node-transparentCache)
+# node-transparentCache [![Build Status](https://travis-ci.org/zaphod1984/node-transparentCache.png)](https://travis-ci.org/zaphod1984/node-transparentCache)
 
 [![NPM](https://nodei.co/npm/transparentcache.png)](https://nodei.co/npm/transparentcache/)
 
@@ -8,9 +6,9 @@
 
 ## Installation
 
-```$ npm install transparentcache```
-
-
+````bash
+$ npm install transparentcache
+````
 
 ## transparentcache(client, [options])
 

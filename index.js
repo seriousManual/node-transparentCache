@@ -1,3 +1,5 @@
+var sigmund = require('sigmund');
+
 var strategies = require('./strategies');
 
 /**
@@ -162,21 +164,7 @@ cachify._isAsyncCall = function(argsArray) {
  * @private
  */
 cachify._createCacheName = function(listOfArguments) {
-
-    var tmp = listOfArguments.map(function(argument) {
-        switch (typeof argument) {
-            case 'string':
-                return argument;
-
-            case 'number':
-                return argument + '';
-
-            default:
-                return JSON.stringify(argument);
-        }
-    });
-
-    return tmp.join('_');
+    return sigmund(listOfArguments);
 };
 
 /**

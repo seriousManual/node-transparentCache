@@ -8,12 +8,13 @@
   },
   "author": "Manuel Ernst <zaphod84@gmx.de>",
   "dependencies": {
-    "lru-cache": "2.3"
+    "lru-cache": "^2.5.0",
+    "sigmund": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "*",
-    "chai": "*",
-    "sinon": "*"
+    "mocha": "^1.19.0",
+    "chai": "^1.9.1",
+    "sinon": "^1.10.0"
   },
   "files": [
     "index.js"

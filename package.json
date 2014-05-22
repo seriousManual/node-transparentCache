@@ -16,16 +16,14 @@
     "chai": "^1.9.1",
     "sinon": "^1.10.0"
   },
-  "files": [
-    "index.js"
-  ],
   "main": "./index.js",
   "keywords": [
     "cachinglayer",
     "transparent cache",
     "memoize",
     "cache",
-    "lru"
+    "lru",
+    "transparent"
   ],
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha tests"
